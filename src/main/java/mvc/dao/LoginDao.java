@@ -2,11 +2,11 @@ package mvc.dao;
 
 import java.util.List;
 
-import mvc.model.UserInfo;
+import mvc.model.User;
 
 public interface LoginDao {
+	
+	User findUserInfo(String username);
 
-	UserInfo findUserInfo(String username);
-
-	List getUserRoles(String username);
+	List<String> getUserRoles(String username);
 }

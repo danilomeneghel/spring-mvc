@@ -1,16 +1,35 @@
-package mvc.form;
+package mvc.model;
 
-public class UserForm {
+public class User {
 
+	private Integer id;
 	private String name;
 	private String email;
 	private String address;
 	private String username;
 	private String password;
-	private String confirmPassword;
 
-	public UserForm() {
+	public User() {
 		super();
+	}
+
+	public User(Integer id) {
+		super();
+		this.id = id;
+	}
+
+	public User(String username, String password) {
+		super();
+		this.username = username;
+		this.password = password;
+	}
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public String getName() {
@@ -53,19 +72,10 @@ public class UserForm {
 		this.password = password;
 	}
 
-	public String getConfirmPassword() {
-		return confirmPassword;
-	}
-
-	public void setConfirmPassword(String confirmPassword) {
-		this.confirmPassword = confirmPassword;
-	}
-
 	@Override
 	public String toString() {
-		return "UserForm [name=" + name + ", email=" + email + ", address=" + address + ", username=" + username
-				+ ", password=" + password + ", confirmPassword=" + confirmPassword + "]";
+		return "User [id=" + id + ", name=" + name + ", email=" + email + ", address=" + address + ", username="
+				+ username + ", password=" + password + "]";
 	}
-	
-	
+
 }

@@ -4,6 +4,7 @@ Projeto Java desenvolvido em Spring 4.
 
 ## Características
 
+- MVC
 - CRUD
 - ACL
 - Validation
@@ -22,9 +23,7 @@ Projeto Java desenvolvido em Spring 4.
 - JPA
 - Maven
 - Spring
-- CSS
-- Jquery
-- Bootstrap
+- JSP
 - MySql
 
 ## Instalação

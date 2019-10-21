@@ -7,7 +7,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import mvc.dao.UserDao;
-import mvc.model.UserInfo;
+import mvc.form.UserForm;
+import mvc.model.User;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -22,24 +23,39 @@ public class UserServiceImpl implements UserService {
 		this.userDao = userDao;
 	}
 
-	public List list() {
-		return userDao.list();
+	public List listAllUsers() {
+		return userDao.listAllUsers();
 	}
 
-	public UserInfo findUserByUsername(String username) {
-		return userDao.findUserByUsername(username);
+	public void addUser(User user) {
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
+		userDao.addUser(user);
 	}
 
-	public void update(String username, String password) {
-		userDao.update(username, passwordEncoder.encode(password));
+	public void updateUser(User user) {
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
+		userDao.updateUser(user);
 	}
 
-	public void add(String username, String password) {
-		userDao.add(username, passwordEncoder.encode(password));
+	public void deleteUser(int id) {
+		userDao.deleteUser(id);
+	}
+
+	public User findUserById(int id) {
+		return userDao.findUserById(id);
 	}
 
 	public boolean userExists(String username) {
 		return userDao.userExists(username);
+	}
+
+	public String findUserByUsername(String username) {
+		return userDao.findUserByUsername(username);
+	}
+
+	public void signUp(UserForm userForm) {
+		userForm.setPassword(passwordEncoder.encode(userForm.getPassword()));
+		userDao.signUp(userForm);		
 	}
 
 }

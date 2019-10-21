@@ -9,11 +9,11 @@
 </head>
 <body>
  <a href='<c:url value="/logout" />'>Logout</a>
- <h1>Welcome 
- <c:if test="${pageContext.request.userPrincipal.name != null }">
- ${pageContext.request.userPrincipal.name }
- </c:if> </h1>
  <br/>
- <a href='<c:url value="/user/list" />'>Users List</a>
+ <a href='<c:url value="/user/list" />'>Listar Usuários</a>
+ <h1>Seja bem-vindo, 
+ <c:if test="${pageContext.request.userPrincipal.name != null }">
+ ${pageContext.request.userPrincipal.name }!
+ </c:if> </h1>
 </body>
 </html>

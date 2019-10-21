@@ -13,7 +13,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import mvc.dao.LoginDao;
-import mvc.model.UserInfo;
 
 @Service
 public class LoginServiceImpl implements UserDetailsService {
@@ -26,10 +25,10 @@ public class LoginServiceImpl implements UserDetailsService {
 	}
 
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		UserInfo userInfo = loginDao.findUserInfo(username);
+		mvc.model.User user = loginDao.findUserInfo(username);
 
-		if (userInfo == null) {
-			throw new UsernameNotFoundException("username was not found in the database");
+		if (user == null) {
+			throw new UsernameNotFoundException("Usuário não encontrado.");
 		}
 
 		List<String> roles = loginDao.getUserRoles(username);
@@ -43,9 +42,9 @@ public class LoginServiceImpl implements UserDetailsService {
 			}
 		}
 
-		UserDetails userDetails = new User(userInfo.getUsername(), userInfo.getPassword(), grantList);
+		UserDetails userDetails = new User(user.getUsername(), user.getPassword(), grantList);
 
 		return userDetails;
 	}
-
+	
 }

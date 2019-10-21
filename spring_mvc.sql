@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3306
--- Generation Time: 20-Out-2019 às 20:09
+-- Generation Time: 21-Out-2019 às 03:49
 -- Versão do servidor: 5.7.24
 -- versão do PHP: 7.2.14
 
@@ -25,39 +25,27 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Estrutura da tabela `persistent_logins`
---
-
-DROP TABLE IF EXISTS `persistent_logins`;
-CREATE TABLE IF NOT EXISTS `persistent_logins` (
-  `username` varchar(64) NOT NULL,
-  `series` varchar(64) NOT NULL,
-  `token` varchar(64) NOT NULL,
-  `last_used` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  PRIMARY KEY (`series`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
 -- Estrutura da tabela `users`
 --
 
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `address` varchar(255) NOT NULL,
   `username` varchar(45) NOT NULL DEFAULT '',
   `password` varchar(200) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `password`) VALUES
-(1, 'admin', '$2a$10$Bwj6eF82hchzbOnLBg7DSeDaZCwAGTSrhBSZHSYFxPKxxvWo41pOa'),
-(2, 'teste', '$2a$10$z0QlYPWXGDanq0wOJ1vnUezBb02Decd89o9ElLM5thqCpImAgKSPS');
+INSERT INTO `users` (`id`, `name`, `email`, `address`, `username`, `password`) VALUES
+(1, 'Administrador', 'admin@admin.com', '', 'admin', '$2a$10$Bwj6eF82hchzbOnLBg7DSeDaZCwAGTSrhBSZHSYFxPKxxvWo41pOa'),
+(14, 'User', 'user@user.com', '', 'user', '$2a$10$5jW1osLYOU.Dlhjh9n.JBOEXBKZFKk3t9yB0eUTuBas9OL/LkRsdm');
 
 -- --------------------------------------------------------
 
@@ -71,7 +59,7 @@ CREATE TABLE IF NOT EXISTS `user_roles` (
   `username` varchar(45) NOT NULL DEFAULT '',
   `role` varchar(45) NOT NULL DEFAULT '',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 --
 -- Extraindo dados da tabela `user_roles`
@@ -79,7 +67,7 @@ CREATE TABLE IF NOT EXISTS `user_roles` (
 
 INSERT INTO `user_roles` (`id`, `username`, `role`) VALUES
 (1, 'admin', 'ROLE_ADMIN'),
-(2, 'teste', 'ROLE_USER');
+(4, 'user', 'ROLE_USER');
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

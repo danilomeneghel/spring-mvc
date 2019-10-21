@@ -10,44 +10,41 @@
 </head>
 <body>
  <form name="loginForm" action='<c:url value="j_spring_security_check" />' method="post" >
+ <div style="width:260px; margin:60px auto 0px auto">
+  <div style="text-align:center"><h2>Login</h2></div>
   <table>
-   <tr>
-    <td colspan="2">Login</td>
-   </tr>
    <tr>
     <td colspan="2">${msg }</td>
    </tr>
    <tr>
-    <td>Username: </td>
     <td>
-     <input type="text" name="username" />
+     Usuário: <br>
+     <input type="text" size="30" name="username" />
     </td>
    </tr>
    <tr>
-    <td>Password: </td>
     <td>
-     <input type="password" name="password" />
+     Senha: <br>
+     <input type="password" size="30" name="password" />
     </td>
    </tr>
    <tr>
-    <td>Remember Me: </td>
     <td>
-     <input type="checkbox" name="remember-me" />
+     Lembrar-me: <input type="checkbox" name="remember-me" />
     </td>
    </tr>
    <tr>
-    <td></td>
     <td>
      <button type="submit">Login</button>
     </td>
    </tr>
    <tr>
-    <td></td>
     <td>
-     <a href='<c:url value="/user/signup" />'>Sign up</a>
+     <br><a href='<c:url value="/user/signup" />'>Criar nova conta</a>
     </td>
    </tr>
   </table>
+  </div>
  </form>
 </body>
 </html>

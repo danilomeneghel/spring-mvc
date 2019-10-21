@@ -11,7 +11,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.stereotype.Repository;
 
-import mvc.model.UserInfo;
+import mvc.model.User;
 
 @Repository
 public class LoginDaoImpl implements LoginDao {
@@ -23,21 +23,21 @@ public class LoginDaoImpl implements LoginDao {
 		this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
 	}
 
-	public UserInfo findUserInfo(String username) {
+	public User findUserInfo(String username) {
 		String sql = "select username,password from users where username = :username";
 
-		UserInfo userInfo = namedParameterJdbcTemplate.queryForObject(sql, getSqlParameterSource(username, ""),
+		User login = (User) namedParameterJdbcTemplate.queryForObject(sql, getSqlParameterSource(username, ""),
 				new UserInfoMapper());
 
-		return userInfo;
+		return login;
 	}
 
-	private static final class UserInfoMapper implements RowMapper {
+	private static final class UserInfoMapper implements RowMapper<Object> {
 
-		public UserInfo mapRow(ResultSet rs, int rowNum) throws SQLException {
+		public User mapRow(ResultSet rs, int rowNum) throws SQLException {
 			String username = rs.getString("username");
 			String password = rs.getString("password");
-			return new UserInfo(username, password);
+			return new User(username, password);
 		}
 
 	}
@@ -50,10 +50,11 @@ public class LoginDaoImpl implements LoginDao {
 		return parameterSource;
 	}
 
-	public List getUserRoles(String username) {
+	public List<String> getUserRoles(String username) {
 		String sql = "select role from user_roles where username = :username";
 
-		List roles = namedParameterJdbcTemplate.queryForList(sql, getSqlParameterSource(username, ""), String.class);
+		List<String> roles = namedParameterJdbcTemplate.queryForList(sql, getSqlParameterSource(username, ""),
+				String.class);
 
 		return roles;
 	}

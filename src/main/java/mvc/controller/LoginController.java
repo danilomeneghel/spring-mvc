@@ -21,7 +21,7 @@ public class LoginController {
 		ModelAndView model = new ModelAndView();
 
 		if (error != null) {
-			model.addObject("msg", "The username or password is incorrect!");
+			model.addObject("msg", "Usuário ou senha inválidos!");
 		}
 
 		model.setViewName("login/login");

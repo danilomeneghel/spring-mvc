@@ -12,6 +12,8 @@
 <body>
  <a href='<c:url value="/logout" />'>Logout</a>
  <br/>
+ 
+ <h2>Lista de Usuários</h2>
  <table border="1">
   <tr>
    <td>Username</td>

@@ -2,18 +2,24 @@ package mvc.dao;
 
 import java.util.List;
 
-import mvc.model.UserInfo;
+import mvc.form.UserForm;
+import mvc.model.User;
 
 public interface UserDao {
 
-	public List list();
+	public List<User> listAllUsers();
 
-	public UserInfo findUserByUsername(String username);
+	public User findUserById(int id);
 
-	public void update(String username, String password);
-
-	public void add(String username, String password);
+	public String findUserByUsername(String username);
 
 	public boolean userExists(String username);
 
+	public void signUp(UserForm userForm);
+	
+	public void addUser(User user);
+
+	public void updateUser(User user);
+
+	public void deleteUser(int id);
 }

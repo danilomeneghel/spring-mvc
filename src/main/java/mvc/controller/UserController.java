@@ -1,5 +1,7 @@
 package mvc.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -11,8 +13,9 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import mvc.form.UserForm;
-import mvc.model.UserInfo;
+import mvc.model.User;
 import mvc.service.UserService;
+import mvc.service.LoginService;
 import mvc.validator.SignupValidator;
 
 @Controller
@@ -22,13 +25,35 @@ public class UserController {
 	@Autowired
 	SignupValidator signupValidator;
 
+	LoginService loginService;
+
 	@Autowired
 	UserService userService;
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list() {
-		ModelAndView model = new ModelAndView("user/list");
-		model.addObject("list", userService.list());
+		ModelAndView model = new ModelAndView("user/user_page");
+
+		List list = userService.listAllUsers();
+		model.addObject("listUser", list);
+
+		return model;
+	}
+
+	@RequestMapping(value = "/add", method = RequestMethod.GET)
+	public ModelAndView add() {
+		ModelAndView model = new ModelAndView("user/user_form");
+		model.addObject("userForm", new User());
+		
+		return model;
+	}
+
+	@RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
+	public ModelAndView update(@PathVariable("id") int id) {
+		ModelAndView model = new ModelAndView("user/user_form");
+
+		User user = userService.findUserById(id);
+		model.addObject("userForm", user);
 
 		return model;
 	}
@@ -42,12 +67,22 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/save", method = RequestMethod.POST)
-	public ModelAndView save(@ModelAttribute("user") UserInfo user) {
-		ModelAndView model = changePass(user.getUsername());
-		userService.update(user.getUsername(), user.getPassword());
-		model.addObject("msg", "Your password has been changed successfully!");
+	public ModelAndView save(@ModelAttribute("user") User user) {
 
-		return model;
+		if (user != null && user.getId() != null) {
+			userService.updateUser(user);
+		} else {
+			userService.addUser(user);
+		}
+
+		return new ModelAndView("redirect:/user/list");
+	}
+
+	@RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)
+	public ModelAndView delete(@PathVariable("id") int id) {
+		userService.deleteUser(id);
+
+		return new ModelAndView("redirect:/user/list");
 	}
 
 	@RequestMapping(value = "/signup", method = RequestMethod.GET)
@@ -67,8 +102,8 @@ public class UserController {
 		if (result.hasErrors()) {
 			return "/user/signup";
 		} else {
-			userService.add(userForm.getUsername(), userForm.getPassword());
-			redirectAttributes.addFlashAttribute("msg", "Your account has been created successfully!");
+			userService.signUp(userForm);
+			redirectAttributes.addFlashAttribute("msg", "Conta criada com sucesso!");
 
 			return "redirect:/login";
 		}

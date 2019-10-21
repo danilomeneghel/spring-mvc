@@ -2,17 +2,24 @@ package mvc.service;
 
 import java.util.List;
 
-import mvc.model.UserInfo;
+import mvc.form.UserForm;
+import mvc.model.User;
 
 public interface UserService {
 
-	public List list();
+	public String findUserByUsername(String username);
+	
+	public List<User> listAllUsers();
 
-	public UserInfo findUserByUsername(String username);
+	public void signUp(UserForm userForm);
+	
+	public void addUser(User user);
 
-	public void update(String username, String password);
+	public void updateUser(User user);
 
-	public void add(String username, String password);
+	public void deleteUser(int id);
 
+	public User findUserById(int id);
+	
 	public boolean userExists(String username);
 }

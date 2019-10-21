@@ -7,9 +7,11 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Change Password</title>
+<title>Alterar Senha</title>
 </head>
 <body>
+<h2>Alterar Senha</h2>
+
  <spring:url value="/user/save" var="saveURL" />
  <form:form method="post" modelAttribute="user" action="${saveURL }">
   <form:hidden path="username"/>
@@ -18,17 +20,17 @@
     <td colspan="2">${msg }</td>
    </tr>
    <tr>
-    <td>Username: </td>
+    <td>Usuário: </td>
     <td>${user.username }</td>
    </tr>
    <tr>
-    <td>Password: </td>
+    <td>Senha: </td>
     <td><form:password path="password" /></td>
    </tr>
    <tr>
     <td></td>
     <td>
-     <button type="submit" >Change Password</button>
+     <button type="submit" >Alterar a senha</button>
     </td>
    </tr>
   </table>
