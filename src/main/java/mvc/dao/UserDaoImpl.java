@@ -65,30 +65,26 @@ public class UserDaoImpl implements UserDao {
 	public User findUserById(int id) {
 		String sql = "SELECT * FROM users WHERE id = :id";
 
-		return namedParameterJdbcTemplate.queryForObject(sql, getSqlParameterByModel(new User(id)), new UserMapper());
+		try {
+			return namedParameterJdbcTemplate.queryForObject(sql, getSqlParameterByModel(new User(id)), new UserMapper());
+		} catch (Exception e) {
+			return null;
+		}
 	}
 
-	private SqlParameterSource getSqlParameterSource(String username) {
-		MapSqlParameterSource parameterSource = new MapSqlParameterSource();
-		parameterSource.addValue("username", username);
+	public User findUserByUsername(String username) {
+		String sql = "SELECT * FROM users WHERE username = :username";
 
-		return parameterSource;
-	}
-
-	public String findUserByUsername(String username) {
-		String sql = "select username from users where username = :username";
-
-		List<String> list = namedParameterJdbcTemplate.queryForList(sql, getSqlParameterSource(username), String.class);
-
-		return list.get(0);
+		try {
+			return namedParameterJdbcTemplate.queryForObject(sql, getSqlParameterByModel(new User(username)), new UserMapper());
+		} catch (Exception e) {
+			return null;
+		}
 	}
 
 	public boolean userExists(String username) {
-		String sql = "select * from users where username = :username";
-
-		List list = namedParameterJdbcTemplate.query(sql, getSqlParameterSource(username), new UserMapper());
-
-		if (list.size() > 0) {
+		User user = findUserByUsername(username);
+		if (user != null && user.getUsername() != null) {
 			return true;
 		}
 
@@ -101,8 +97,8 @@ public class UserDaoImpl implements UserDao {
 		namedParameterJdbcTemplate.update(sql, getSqlParameterByModel(user));
 
 		sql = "INSERT INTO user_roles(username, role) VALUES(:username, 'ROLE_USER')";
-		
-		namedParameterJdbcTemplate.update(sql, getSqlParameterSource(user.getUsername()));
+
+		namedParameterJdbcTemplate.update(sql, getSqlParameterByModel(user));
 	}
 
 	public void updateUser(User user) {

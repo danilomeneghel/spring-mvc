@@ -10,12 +10,18 @@
 <title>Alterar Senha</title>
 </head>
 <body>
+<a href='../list'>Voltar</a>
+ <br/>
+ 
 <h2>Alterar Senha</h2>
-
  <spring:url value="/user/save" var="saveURL" />
  <form:form method="post" modelAttribute="user" action="${saveURL }">
+  <form:hidden path="id"/>
+  <form:hidden path="name"/>
+  <form:hidden path="email"/>
+  <form:hidden path="address"/>
   <form:hidden path="username"/>
-  <table border="1">
+  <table border="0">
    <tr>
     <td colspan="2">${msg }</td>
    </tr>

@@ -32,7 +32,7 @@ public class UserController {
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public ModelAndView list() {
-		ModelAndView model = new ModelAndView("user/user_page");
+		ModelAndView model = new ModelAndView("user/list");
 
 		List list = userService.listAllUsers();
 		model.addObject("listUser", list);
@@ -42,7 +42,7 @@ public class UserController {
 
 	@RequestMapping(value = "/add", method = RequestMethod.GET)
 	public ModelAndView add() {
-		ModelAndView model = new ModelAndView("user/user_form");
+		ModelAndView model = new ModelAndView("user/form");
 		model.addObject("userForm", new User());
 		
 		return model;
@@ -50,11 +50,9 @@ public class UserController {
 
 	@RequestMapping(value = "/update/{id}", method = RequestMethod.GET)
 	public ModelAndView update(@PathVariable("id") int id) {
-		ModelAndView model = new ModelAndView("user/user_form");
-
-		User user = userService.findUserById(id);
-		model.addObject("userForm", user);
-
+		ModelAndView model = new ModelAndView("user/form");
+		model.addObject("userForm", userService.findUserById(id));
+		
 		return model;
 	}
 

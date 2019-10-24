@@ -8,13 +8,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Cadastrar Usuário</title>
+<title>Cadastro de Usuário</title>
 </head>
 <body>
-<a href='<c:url value="/logout" />'>Logout</a>
+<a href='../user/list'>Voltar</a>
  <br/>
  
- <h2>Cadastrar Usuário</h2>
+ <h2>Cadastro de Usuário</h2>
  <spring:url value="/user/save" var="saveURL" />
  <form:form modelAttribute="userForm" method="post" action="${saveURL }" >
   <form:hidden path="id"/>

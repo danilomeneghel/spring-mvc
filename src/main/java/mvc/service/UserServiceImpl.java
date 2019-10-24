@@ -49,7 +49,7 @@ public class UserServiceImpl implements UserService {
 		return userDao.userExists(username);
 	}
 
-	public String findUserByUsername(String username) {
+	public User findUserByUsername(String username) {
 		return userDao.findUserByUsername(username);
 	}
 

@@ -7,19 +7,19 @@ import mvc.model.User;
 
 public interface UserService {
 
-	public String findUserByUsername(String username);
-	
 	public List<User> listAllUsers();
 
+	public User findUserById(int id);
+
+	public User findUserByUsername(String username);
+
+	public boolean userExists(String username);
+
 	public void signUp(UserForm userForm);
-	
+
 	public void addUser(User user);
 
 	public void updateUser(User user);
 
 	public void deleteUser(int id);
-
-	public User findUserById(int id);
-	
-	public boolean userExists(String username);
 }
