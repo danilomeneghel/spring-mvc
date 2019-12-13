@@ -32,8 +32,8 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 		DriverManagerDataSource ds = new DriverManagerDataSource();
 		ds.setDriverClassName("com.mysql.jdbc.Driver");
 		ds.setUrl("jdbc:mysql://localhost/spring_mvc");
-		ds.setUsername("root");
-		ds.setPassword("");
+		ds.setUsername("admin");
+		ds.setPassword("admin");
 
 		return ds;
 	}

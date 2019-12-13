@@ -27,7 +27,7 @@ public class UserDaoImpl implements UserDao {
 	public List listAllUsers() {
 		String sql = "SELECT * FROM users";
 
-		List<User> list = namedParameterJdbcTemplate.query(sql, getSqlParameterByModel(null), new UserMapper());
+		List<User> list = namedParameterJdbcTemplate.query(sql, getSqlParameterByModel(null), new UserRowMapper());
 
 		return list;
 	}
@@ -47,7 +47,7 @@ public class UserDaoImpl implements UserDao {
 		return parameterSource;
 	}
 
-	private static final class UserMapper implements RowMapper {
+	private static final class UserRowMapper implements RowMapper<User> {
 
 		public User mapRow(ResultSet rs, int rowNum) throws SQLException {
 			User user = new User();
@@ -66,7 +66,7 @@ public class UserDaoImpl implements UserDao {
 		String sql = "SELECT * FROM users WHERE id = :id";
 
 		try {
-			return namedParameterJdbcTemplate.queryForObject(sql, getSqlParameterByModel(new User(id)), new UserMapper());
+			return namedParameterJdbcTemplate.queryForObject(sql, getSqlParameterByModel(new User(id)), new UserRowMapper());
 		} catch (Exception e) {
 			return null;
 		}
@@ -76,7 +76,7 @@ public class UserDaoImpl implements UserDao {
 		String sql = "SELECT * FROM users WHERE username = :username";
 
 		try {
-			return namedParameterJdbcTemplate.queryForObject(sql, getSqlParameterByModel(new User(username)), new UserMapper());
+			return namedParameterJdbcTemplate.queryForObject(sql, getSqlParameterByModel(new User(username)), new UserRowMapper());
 		} catch (Exception e) {
 			return null;
 		}
